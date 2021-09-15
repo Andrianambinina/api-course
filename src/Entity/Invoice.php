@@ -2,11 +2,19 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\InvoiceRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=InvoiceRepository::class)
+ * @ApiResource(
+ *     attributes={
+ *          "pagination_enabled"=true
+ *          "pagination_items_per_page"=20,
+ *          "order": {"sentAt": "desc"}
+ *     }
+ * )
  */
 class Invoice
 {
