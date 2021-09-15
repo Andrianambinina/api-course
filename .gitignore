@@ -19,7 +19,7 @@
 .phpunit.result.cache
 ###< phpunit/phpunit ###
 
-###> symfony/web-server-bundle ###
+###> symfony/web-server-bundle ###rm
 /.web-server-pid
 ###< symfony/web-server-bundle ###
 
