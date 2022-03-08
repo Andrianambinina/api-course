@@ -37,24 +37,24 @@ const CustomerPage = () => {
             <table className="table table-bordered table-striped">
                 <thead>
                 <tr>
-                    <th scope="col">Id</th>
+                    <th scope="col" className="text-center">Id</th>
                     <th scope="col">Nom</th>
                     <th scope="col">Prénom</th>
                     <th scope="col">Email</th>
                     <th scope="col">Company</th>
-                    <th scope="col">Total</th>
+                    <th scope="col" className="text-center">Total</th>
                     <th scope="col">Action</th>
                 </tr>
                 </thead>
                 <tbody>
                 {data.map((customer) => (
                     <tr key={customer.id}>
-                        <td>{customer.id}</td>
+                        <td className="text-center">{customer.id}</td>
                         <td>{customer.firstName}</td>
                         <td>{customer.lastName}</td>
                         <td>{customer.email}</td>
                         <td>{customer.company}</td>
-                        <td>{customer.totalAmount.toLocaleString()}</td>
+                        <td className="text-center">{customer.totalAmount.toLocaleString()}</td>
                         <td>
                             <button className="btn btn-danger" disabled={customer.invoices.length > 0}
                                     onClick={() => handleDelete(customer.id)}>

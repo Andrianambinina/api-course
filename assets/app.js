@@ -10,10 +10,11 @@ import CustomerPage from "./js/pages/CustomerPage";
 const App = () => {
     return (
         <div className="app">
-            <Navbar/>
             <HashRouter>
+                <Navbar/>
                 <Switch>
                     <Route path="/customers" component={CustomerPage} />
+                    <Route path="/invoices" component={Home} />
                     <Route path="/" component={Home} />
                 </Switch>
             </HashRouter>

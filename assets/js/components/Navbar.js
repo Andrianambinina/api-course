@@ -1,4 +1,7 @@
 import React from 'react';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faSignInAlt, faSignOutAlt, faUserPlus} from '@fortawesome/free-solid-svg-icons';
+import {Link} from 'react-router-dom';
 
 const Navbar = () => {
     return (
@@ -14,22 +17,28 @@ const Navbar = () => {
                 <div className="collapse navbar-collapse" id="navbarColor03">
                     <ul className="navbar-nav me-auto">
                         <li className="nav-item">
-                            <a className="nav-link" href="#">Client</a>
+                            <Link className="nav-link" to="/customers">Client</Link>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#">Facture</a>
+                            <Link className="nav-link" to="/invoices">Facture</Link>
                         </li>
                     </ul>
 
                     <ul className="navbar-nav ml-auto">
                         <li className="nav-item">
-                            <button className="btn btn-light">Inscription</button>
+                            <button className="btn btn-light">
+                                <FontAwesomeIcon icon={faUserPlus}/>
+                            </button>
                         </li>
                         <li className="nav-item">
-                            <button className="btn btn-success">Connexion</button>
+                            <button className="btn btn-success">
+                                <FontAwesomeIcon icon={faSignInAlt}/>
+                            </button>
                         </li>
                         <li className="nav-item">
-                            <button className="btn btn-danger">Déconnexion</button>
+                            <button className="btn btn-danger">
+                                <FontAwesomeIcon icon={faSignOutAlt}/>
+                            </button>
                         </li>
                     </ul>
                 </div>
