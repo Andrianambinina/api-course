@@ -9,6 +9,7 @@ const CustomerPage = () => {
 
     const [customers, setCustomers] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
+    const [search, setSearch] = useState('');
     const itemsPerPage = 10;
 
     useEffect(() => {
@@ -29,12 +30,27 @@ const CustomerPage = () => {
         setCurrentPage(page)
     };
 
-    const data = Pagination.getData(customers, itemsPerPage, currentPage);
+    const filteredCustomers = customers.filter((customer) =>
+        customer.firstName.toLowerCase().includes(search.toLowerCase()) ||
+        customer.lastName.toLowerCase().includes(search.toLowerCase()) ||
+        customer.email.toLowerCase().includes(search.toLowerCase()) ||
+        customer.company.toLowerCase().includes(search.toLowerCase())
+    );
+    const data = Pagination.getData(filteredCustomers, itemsPerPage, currentPage);
+
+    const handleSearch = (event) => {
+        setSearch(event.target.value);
+        setCurrentPage(1);
+    };
 
     return (
         <div className="container mt-5">
             <h3>Liste des clients</h3>
-            <table className="table table-bordered table-striped">
+            <div className="form-group">
+                <input type="text" className="form-control" placeholder="Rechercher" value={search}
+                       onChange={handleSearch}/>
+            </div>
+            <table className="table table-bordered table-striped mt-3">
                 <thead>
                 <tr>
                     <th scope="col" className="text-center">Id</th>
@@ -66,12 +82,12 @@ const CustomerPage = () => {
                 </tbody>
             </table>
 
-            <Pagination
-                length={customers.length}
+            {filteredCustomers.length > itemsPerPage && <Pagination
+                length={filteredCustomers.length}
                 itemsPerPage={itemsPerPage}
                 currentPage={currentPage}
                 onChangePage={handlePageChange}
-            />
+            />}
         </div>
     );
 };
