@@ -8,25 +8,34 @@ import Pagination from "../components/Pagination";
 const InvoicePage = () => {
 
     const [invoices, setInvoices] = useState([]);
-    // pagination
     const [currentPage, setCurrentPage] = useState(1);
+    const [search, setSearch] = useState('');
 
     useEffect(() => {
         axios.get('http://localhost:8000/api/invoices').then((response) => setInvoices(response.data["hydra:member"]));
     }, []);
 
-    // pagination
     const itemsPerPage = 10;
     const handlePageChange = (page) => {
         setCurrentPage(page);
     };
-    const invoicesPaginated = Pagination.getData(invoices, itemsPerPage, currentPage);
+
+    const filteredInvoices = invoices.filter(invoice =>
+        invoice.status.toLowerCase().includes(search.toLowerCase()) ||
+        invoice.customer.firstName.toLowerCase().includes(search.toLowerCase()) ||
+        invoice.customer.lastName.toLowerCase().includes(search.toLowerCase())
+    );
+    const invoicesPaginated = Pagination.getData(filteredInvoices, itemsPerPage, currentPage);
 
     return (
         <div className="container mt-5">
             <h3>Listes des factures</h3>
 
-            <table className="table table-bordered">
+            <div className="form-group">
+                <input type="text" className="form-control" value={search} placeholder="Rechercher" onChange={(e) => {setSearch(e.target.value); setCurrentPage(1) }}/>
+            </div>
+
+            <table className="table table-bordered mt-3">
                 <thead>
                     <tr>
                         <th scope="col">Numero</th>

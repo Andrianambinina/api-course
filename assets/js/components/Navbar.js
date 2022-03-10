@@ -31,7 +31,7 @@ const Navbar = () => {
                             </button>
                         </li>
                         <li className="nav-item">
-                            <button className="btn btn-success">
+                            <button className="btn btn-info">
                                 <FontAwesomeIcon icon={faSignInAlt}/>
                             </button>
                         </li>
