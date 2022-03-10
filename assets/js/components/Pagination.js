@@ -1,12 +1,10 @@
 import React from 'react';
 
 const Pagination = ({length, itemsPerPage, currentPage, onChangePage}) => {
-    console.log(length);
     const pageCount = Math.ceil(length / itemsPerPage);
     const page = [];
     for (let i = 1; i <= pageCount; i++) {
         page.push(i);
-
     }
 
     return (

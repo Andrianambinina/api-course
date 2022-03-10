@@ -3,7 +3,21 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faTrashCan} from '@fortawesome/free-solid-svg-icons';
+import {faEdit} from '@fortawesome/free-solid-svg-icons';
 import Pagination from "../components/Pagination";
+import moment from 'moment';
+
+const STATUS_CLASS = {
+    PAID: 'success',
+    SENT: 'info',
+    CANCELLED: 'danger'
+};
+
+const STATUS_LABEL = {
+    PAID: 'Payé',
+    SENT: 'Envoyé',
+    CANCELLED: 'Annulé'
+};
 
 const InvoicePage = () => {
 
@@ -23,9 +37,12 @@ const InvoicePage = () => {
     const filteredInvoices = invoices.filter(invoice =>
         invoice.status.toLowerCase().includes(search.toLowerCase()) ||
         invoice.customer.firstName.toLowerCase().includes(search.toLowerCase()) ||
-        invoice.customer.lastName.toLowerCase().includes(search.toLowerCase())
+        invoice.customer.lastName.toLowerCase().includes(search.toLowerCase()) ||
+        invoice.amount.toString().includes(search.toLocaleString())
     );
     const invoicesPaginated = Pagination.getData(filteredInvoices, itemsPerPage, currentPage);
+
+    const formatDate = (date) => moment(date).format('DD/MM/YYYY');
 
     return (
         <div className="container mt-5">
@@ -38,24 +55,31 @@ const InvoicePage = () => {
             <table className="table table-bordered mt-3">
                 <thead>
                     <tr>
-                        <th scope="col">Numero</th>
-                        <th scope="col">Statut</th>
-                        <th scope="col">Montant</th>
+                        <th scope="col">Numéro</th>
                         <th scope="col">Client</th>
-                        <th scope="col">Date de création</th>
-                        <th scope="col">Action</th>
+                        <th scope="col" className="text-center">Date de création</th>
+                        <th scope="col" className="text-center">Statut</th>
+                        <th scope="col" className="text-center">Montant</th>
+                        <th scope="col" className="text-center">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     {invoicesPaginated.map((invoice) => (
                         <tr key={invoice.id}>
                             <td>{invoice.chrono}</td>
-                            <td>{invoice.status}</td>
-                            <td>{invoice.amount}</td>
-                            <td>{invoice.customer.firstName} {invoice.customer.lastName}</td>
-                            <td>{invoice.sentAt}</td>
                             <td>
-                                <button className="btn btn-danger">
+                                <a href="#">{invoice.customer.firstName} {invoice.customer.lastName}</a>
+                            </td>
+                            <td className="text-center">{formatDate(invoice.sentAt)}</td>
+                            <td className="text-center">
+                                <span className={"badge bg-" + STATUS_CLASS[invoice.status]}>{STATUS_LABEL[invoice.status]}</span>
+                            </td>
+                            <td className="text-center">{invoice.amount.toLocaleString()}</td>
+                            <td className="text-center">
+                                <button className="btn btn-info">
+                                    <FontAwesomeIcon icon={faEdit} />
+                                </button>
+                                <button className="btn btn-danger ml-5">
                                     <FontAwesomeIcon icon={faTrashCan} />
                                 </button>
                             </td>
