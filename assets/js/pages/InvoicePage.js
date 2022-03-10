@@ -44,6 +44,20 @@ const InvoicePage = () => {
 
     const formatDate = (date) => moment(date).format('DD/MM/YYYY');
 
+    const handleDelete = async (id) => {
+        const originalInvoices = [...invoices];
+
+        setInvoices(invoices.filter((invoice) => invoice.id !== id));
+
+        try {
+            await axios.delete("http://localhost:8000/api/invoices/" + id)
+        } catch (err) {
+            console.log(err.message);
+            setInvoices(originalInvoices);
+        }
+    };
+
+
     return (
         <div className="container mt-5">
             <h3>Listes des factures</h3>
@@ -79,7 +93,7 @@ const InvoicePage = () => {
                                 <button className="btn btn-info">
                                     <FontAwesomeIcon icon={faEdit} />
                                 </button>
-                                <button className="btn btn-danger ml-5">
+                                <button className="btn btn-danger ml-5" onClick={() => handleDelete(invoice.id)}>
                                     <FontAwesomeIcon icon={faTrashCan} />
                                 </button>
                             </td>
