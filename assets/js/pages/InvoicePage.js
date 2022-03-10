@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faTrashCan} from '@fortawesome/free-solid-svg-icons';
+import Pagination from "../components/Pagination";
 
 const InvoicePage = () => {
 
@@ -16,20 +17,10 @@ const InvoicePage = () => {
 
     // pagination
     const itemsPerPage = 10;
-    const pageCount = Math.ceil(invoices.length / itemsPerPage);
-
-    const page = [];
-    for(let i = 1; i <= pageCount; i++) {
-        page.push(i);
-    }
-
     const handlePageChange = (page) => {
         setCurrentPage(page);
     };
-    // 1 2 3 4 5 6 7 8 9 10     11 12 13 14 15 16 17 18 19 20   21 22 23 24 25 26 27 28 29 30   31 32 33 34
-
-    const start = currentPage * itemsPerPage - itemsPerPage;
-    const invoicesPaginated = invoices.slice(start, start + itemsPerPage);
+    const invoicesPaginated = Pagination.getData(invoices, itemsPerPage, currentPage);
 
     return (
         <div className="container mt-5">
@@ -64,21 +55,7 @@ const InvoicePage = () => {
                 </tbody>
             </table>
 
-            <div>
-                <ul className="pagination">
-                    <li className={"page-item" + (currentPage === 1 && " disabled")}>
-                        <button className="page-link" onClick={() => handlePageChange(currentPage - 1)}>&laquo;</button>
-                    </li>
-                    {page.map((page) => (
-                        <li key={page} className={"page-item" + (currentPage === page && " active")}>
-                            <button className="page-link" onClick={() => handlePageChange(page)}>{page}</button>
-                        </li>
-                    ))}
-                    <li className={"page-item" + (currentPage === pageCount && " disabled")}>
-                        <button className="page-link" onClick={() => handlePageChange(currentPage + 1)}>&raquo;</button>
-                    </li>
-                </ul>
-            </div>
+            <Pagination length={invoices.length} itemsPerPage={itemsPerPage} currentPage={currentPage} onChangePage={handlePageChange}/>
         </div>
     );
 };
