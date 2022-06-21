@@ -57,9 +57,8 @@ const InvoicePage = () => {
         }
     };
 
-
     return (
-        <div className="container mt-5">
+        <div className="container">
             <h3>Listes des factures</h3>
 
             <div className="form-group">
@@ -102,7 +101,7 @@ const InvoicePage = () => {
                 </tbody>
             </table>
 
-            <Pagination length={invoices.length} itemsPerPage={itemsPerPage} currentPage={currentPage} onChangePage={handlePageChange}/>
+            {filteredInvoices.length > itemsPerPage && <Pagination length={invoices.length} itemsPerPage={itemsPerPage} currentPage={currentPage} onChangePage={handlePageChange}/>}
         </div>
     );
 };

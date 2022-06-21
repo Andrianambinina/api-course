@@ -44,7 +44,7 @@ const CustomerPage = () => {
     };
 
     return (
-        <div className="container mt-5">
+        <div className="container">
             <h3>Liste des clients</h3>
             <div className="form-group">
                 <input type="text" className="form-control" placeholder="Rechercher" value={search}
