@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Field from "../components/forms/Field";
 import {Link} from "react-router-dom";
 import axios from "axios";
 
-const Customer = () => {
+const Customer = ({match, history}) => {
+    const { id } = match.params;
 
     const [customer, setCustomer] = useState({
         lastName: "",
@@ -19,6 +20,26 @@ const Customer = () => {
         company: ""
     })
 
+    const editCustomer = async id => {
+        try {
+            const data = await axios.get("http://127.0.0.1:8000/api/customers/" + id)
+                .then((response) => response.data);
+            const { lastName, firstName, email, company } = data;
+            setCustomer({lastName, firstName, email, company});
+        } catch (e) {
+            console.log(e.response);
+        }
+    }
+
+    const [editing, setEditing] = useState(false);
+
+    useEffect(() => {
+        if (id !== "new") {
+            setEditing(true)
+            editCustomer(id);
+        }
+    }, [id])
+
     const handleChange = ({currentTarget}) => {
         const {name, value} = currentTarget;
         setCustomer({...customer, [name]: value});
@@ -27,20 +48,29 @@ const Customer = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.post("http://127.0.0.1:8000/api/customers", customer);
+            if (editing) {
+                const response = await axios.put("http://127.0.0.1:8000/api/customers/" + id, customer);
+                history.replace("/customers");
+            } else {
+                const response = await axios.post("http://127.0.0.1:8000/api/customers", customer);
+                history.replace("/customers");
+            }
             setErrors({})
-        } catch (e) {
-            const apiErrors = {};
-            e.response.data.violations.forEach((violation) => {
-                apiErrors[violation.propertyPath] = violation.message
-            })
-            setErrors(apiErrors);
+        } catch ({response}) {
+            const { violations } = response.data
+            if (violations) {
+                const apiErrors = {};
+                violations.forEach(({propertyPath, message}) => {
+                    apiErrors[propertyPath] = message
+                })
+                setErrors(apiErrors);
+            }
         }
     }
 
     return (
         <div className="container">
-            <h1>Création d'un client</h1>
+            {!editing && <h1>Création d'un client</h1> || <h1>Modification d'un client</h1>}
             <form onSubmit={handleSubmit}>
                 <Field name="lastName" label="Nom" placeholder="Nom de famille" value={customer.lastName} onChange={handleChange} error={errors.lastName} />
                 <Field name="firstName" label="Prénoms" placeholder="Prénoms" value={customer.firstName} onChange={handleChange} error={errors.firstName} />
