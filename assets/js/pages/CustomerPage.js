@@ -4,6 +4,7 @@ import axios from 'axios';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faTrashCan} from '@fortawesome/free-solid-svg-icons';
 import Pagination from "../components/Pagination";
+import {Link} from "react-router-dom";
 
 const CustomerPage = () => {
 
@@ -45,7 +46,10 @@ const CustomerPage = () => {
 
     return (
         <div className="container">
-            <h3>Liste des clients</h3>
+            <div className="d-flex justify-content-between align-items-center mb-3">
+                <h3>Liste des clients</h3>
+                <Link to="/customers/new" className="btn btn-info">Créer un client</Link>
+            </div>
             <div className="form-group">
                 <input type="text" className="form-control" placeholder="Rechercher" value={search}
                        onChange={handleSearch}/>

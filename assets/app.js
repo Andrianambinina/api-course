@@ -9,6 +9,7 @@ import CustomerPage from "./js/pages/CustomerPage";
 import InvoicePage from "./js/pages/InvoicePage";
 import LoginPage from "./js/pages/LoginPage";
 import AuthAPI from "./js/services/authAPI";
+import Customer from "./js/pages/Customer";
 
 AuthAPI.setup();
 
@@ -30,8 +31,9 @@ const App = () => {
                 <NavbarWithRouter isAuthenticated={isAuthenticated} onLogout={setIsAuthenticated} />
                 <Switch>
                     <Route path="/login" render={(props) => (<LoginPage onLogin={setIsAuthenticated} {... props} />)} />
-                    <PrivateRoute path="/customers" isAuthenticated={isAuthenticated} component={CustomerPage} />
                     <PrivateRoute path="/invoices" isAuthenticated={isAuthenticated} component={InvoicePage} />
+                    <PrivateRoute path="/customers/:id" isAuthenticated={isAuthenticated} component={Customer} />
+                    <PrivateRoute path="/customers" isAuthenticated={isAuthenticated} component={CustomerPage} />
                     <Route path="/" component={Home} />
                 </Switch>
             </HashRouter>
