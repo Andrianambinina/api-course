@@ -6,6 +6,7 @@ import {faTrashCan} from '@fortawesome/free-solid-svg-icons';
 import {faEdit} from '@fortawesome/free-solid-svg-icons';
 import Pagination from "../components/Pagination";
 import moment from 'moment';
+import {Link} from "react-router-dom";
 
 const STATUS_CLASS = {
     PAID: 'success',
@@ -59,7 +60,10 @@ const InvoicePage = () => {
 
     return (
         <div className="container">
-            <h3>Listes des factures</h3>
+            <div className="d-flex justify-content-between align-items-center mb-3">
+                <h3>Listes des factures</h3>
+                <Link to="/invoices/new" className="btn btn-info">Créer une facture</Link>
+            </div>
 
             <div className="form-group">
                 <input type="text" className="form-control" value={search} placeholder="Rechercher" onChange={(e) => {setSearch(e.target.value); setCurrentPage(1) }}/>
@@ -89,9 +93,9 @@ const InvoicePage = () => {
                             </td>
                             <td className="text-center">{invoice.amount.toLocaleString()}</td>
                             <td className="text-center">
-                                <button className="btn btn-info">
+                                <Link to={"/invoices/" + invoice.id} className="btn btn-info">
                                     <FontAwesomeIcon icon={faEdit} />
-                                </button>
+                                </Link>
                                 <button className="btn btn-danger ml-5" onClick={() => handleDelete(invoice.id)}>
                                     <FontAwesomeIcon icon={faTrashCan} />
                                 </button>

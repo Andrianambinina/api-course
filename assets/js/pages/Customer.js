@@ -70,7 +70,7 @@ const Customer = ({match, history}) => {
 
     return (
         <div className="container">
-            {!editing && <h1>Création d'un client</h1> || <h1>Modification d'un client</h1>}
+            {!editing && <h3>Création d'un client</h3> || <h3>Modification d'un client</h3>}
             <form onSubmit={handleSubmit}>
                 <Field name="lastName" label="Nom" placeholder="Nom de famille" value={customer.lastName} onChange={handleChange} error={errors.lastName} />
                 <Field name="firstName" label="Prénoms" placeholder="Prénoms" value={customer.firstName} onChange={handleChange} error={errors.firstName} />
