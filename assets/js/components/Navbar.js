@@ -31,7 +31,7 @@ const Navbar = ({isAuthenticated, onLogout, history}) => {
                     {
                         (!isAuthenticated && (<>
                             <li className="nav-item">
-                                <a href="#" className="nav-link">Inscription</a>
+                                <NavLink className="nav-link" to="/register">Inscription</NavLink>
                             </li>
                             <li className="nav-item">
                                 <NavLink className="nav-link" to="/login">Se connecter</NavLink>

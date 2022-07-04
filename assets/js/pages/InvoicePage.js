@@ -27,8 +27,11 @@ const InvoicePage = () => {
     const [search, setSearch] = useState('');
 
     useEffect(() => {
-        axios.get('http://localhost:8000/api/invoices').then((response) => setInvoices(response.data["hydra:member"]));
+        const data = axios.get('http://localhost:8000/api/invoices').then((response) => setInvoices(response.data["hydra:member"]));
+
+        console.log(data);
     }, []);
+
 
     const itemsPerPage = 10;
     const handlePageChange = (page) => {
@@ -66,7 +69,8 @@ const InvoicePage = () => {
             </div>
 
             <div className="form-group">
-                <input type="text" className="form-control" value={search} placeholder="Rechercher" onChange={(e) => {setSearch(e.target.value); setCurrentPage(1) }}/>
+                <input type="text" className="form-control" value={search} placeholder="Rechercher"
+                       onChange={(e) => {setSearch(e.target.value); setCurrentPage(1) }}/>
             </div>
 
             <table className="table table-bordered mt-3">
@@ -105,7 +109,8 @@ const InvoicePage = () => {
                 </tbody>
             </table>
 
-            {filteredInvoices.length > itemsPerPage && <Pagination length={invoices.length} itemsPerPage={itemsPerPage} currentPage={currentPage} onChangePage={handlePageChange}/>}
+            {filteredInvoices.length > itemsPerPage && <Pagination length={invoices.length} itemsPerPage={itemsPerPage}
+                                                                   currentPage={currentPage} onChangePage={handlePageChange}/>}
         </div>
     );
 };
