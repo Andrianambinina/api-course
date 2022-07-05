@@ -49,6 +49,7 @@ const Customer = ({match, history}) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
+            setErrors({})
             if (editing) {
                 const response = await axios.put("http://127.0.0.1:8000/api/customers/" + id, customer);
                 toast.success("Le client a bien été modifié");
@@ -58,7 +59,6 @@ const Customer = ({match, history}) => {
                 toast.success("Le client a bien été enregistré");
                 history.replace("/customers");
             }
-            setErrors({})
         } catch ({response}) {
             const { violations } = response.data
             if (violations) {

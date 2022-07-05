@@ -8,6 +8,7 @@ import Pagination from "../components/Pagination";
 import moment from 'moment';
 import {Link} from "react-router-dom";
 import {toast} from "react-toastify";
+import TableLoader from "../components/loaders/TableLoader";
 
 const STATUS_CLASS = {
     PAID: 'success',
@@ -26,10 +27,12 @@ const InvoicePage = () => {
     const [invoices, setInvoices] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [search, setSearch] = useState('');
+    const [loading, setLoading] = useState(true);
 
     const fetchInvoices = async () => {
         try {
             await axios.get('http://localhost:8000/api/invoices').then((response) => setInvoices(response.data["hydra:member"]));
+            setLoading(false);
         } catch (error) {
             toast.error("Erreur lors du chargement des factures !");
         }
@@ -92,7 +95,7 @@ const InvoicePage = () => {
                         <th scope="col" className="text-center">Action</th>
                     </tr>
                 </thead>
-                <tbody>
+                {!loading && <tbody>
                     {invoicesPaginated.map((invoice) => (
                         <tr key={invoice.id}>
                             <td>{invoice.chrono}</td>
@@ -114,9 +117,10 @@ const InvoicePage = () => {
                             </td>
                         </tr>
                     ))}
-                </tbody>
+                </tbody>}
             </table>
 
+            {loading && <TableLoader />}
             {filteredInvoices.length > itemsPerPage && <Pagination length={invoices.length} itemsPerPage={itemsPerPage}
                                                                    currentPage={currentPage} onChangePage={handlePageChange}/>}
         </div>

@@ -6,18 +6,21 @@ import {faTrashCan} from '@fortawesome/free-solid-svg-icons';
 import Pagination from "../components/Pagination";
 import {Link} from "react-router-dom";
 import {toast} from "react-toastify";
+import TableLoader from "../components/loaders/TableLoader";
 
 const CustomerPage = () => {
 
     const [customers, setCustomers] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [search, setSearch] = useState('');
+    const [loading, setLoading] = useState(true);
     const itemsPerPage = 10;
 
     const fetchCustomers = async () => {
         try {
             await axios.get('http://127.0.0.1:8000/api/customers')
                 .then((response) => setCustomers(response.data["hydra:member"]));
+            setLoading(false);
         } catch (error) {
             toast.error("Impossible de charger les clients");
         }
@@ -77,7 +80,7 @@ const CustomerPage = () => {
                     <th scope="col">Action</th>
                 </tr>
                 </thead>
-                <tbody>
+                {!loading && <tbody>
                 {data.map((customer) => (
                     <tr key={customer.id}>
                         <td className="text-center">{customer.id}</td>
@@ -94,8 +97,9 @@ const CustomerPage = () => {
                         </td>
                     </tr>
                 ))}
-                </tbody>
+                </tbody>}
             </table>
+            {loading && <TableLoader />}
 
             {filteredCustomers.length > itemsPerPage && <Pagination
                 length={filteredCustomers.length}
