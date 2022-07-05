@@ -1,12 +1,14 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 import AuthAPI from "../services/authAPI";
+import {toast} from "react-toastify";
 
 const Navbar = ({isAuthenticated, onLogout, history}) => {
 
     const handleLogout = () => {
         AuthAPI.logout();
         onLogout(false);
+        toast.info('Vous êtes désormais déconnecté ');
         history.replace("/login");
     };
 

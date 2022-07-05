@@ -5,6 +5,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faTrashCan} from '@fortawesome/free-solid-svg-icons';
 import Pagination from "../components/Pagination";
 import {Link} from "react-router-dom";
+import {toast} from "react-toastify";
 
 const CustomerPage = () => {
 
@@ -13,18 +14,28 @@ const CustomerPage = () => {
     const [search, setSearch] = useState('');
     const itemsPerPage = 10;
 
+    const fetchCustomers = async () => {
+        try {
+            await axios.get('http://127.0.0.1:8000/api/customers')
+                .then((response) => setCustomers(response.data["hydra:member"]));
+        } catch (error) {
+            toast.error("Impossible de charger les clients");
+        }
+    }
+
     useEffect(() => {
-        axios
-            .get('http://127.0.0.1:8000/api/customers')
-            .then((response) => setCustomers(response.data["hydra:member"]))
-            .catch((err) => console.log(err))
+        fetchCustomers();
     }, []);
 
-    const handleDelete = (id) => {
-        axios
-            .delete(`http://127.0.0.1:8000/api/customers/${id}`)
-            .then(() => setCustomers(customers.filter((customer) => customer.id !== id)))
-            .catch((err) => console.log(err.response));
+    const handleDelete = async (id) => {
+        try {
+            await axios
+                .delete(`http://127.0.0.1:8000/api/customers/${id}`)
+                .then(() => setCustomers(customers.filter((customer) => customer.id !== id)));
+            toast.success("Le client a bien été supprimé");
+        } catch (error) {
+            toast.error("Une erreur est survenue");
+        }
     };
 
     const handlePageChange = (page) => {

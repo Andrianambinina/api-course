@@ -3,6 +3,7 @@ import Field from "../components/forms/Field";
 import customer from "./Customer";
 import {Link} from "react-router-dom";
 import axios from "axios";
+import {toast} from "react-toastify";
 
 const RegisterPage = ({history}) => {
 
@@ -33,12 +34,14 @@ const RegisterPage = ({history}) => {
         if (user.password !== user.passwordConfirm) {
             apiErrors.passwordConfirm = "Les mots de passe ne correspondent pas !";
             setErrors(apiErrors);
+            toast.error("Des erreurs dans votre formulaire !");
             return
         }
 
         try {
             await axios.post("http://127.0.0.1:8000/api/users", user);
             setErrors({});
+            toast.success("Vous êtes désormais inscrit, vous pouvez vous connecter !");
             history.replace("/login");
         } catch ({response}) {
             const {violations} = response.data;
@@ -48,6 +51,7 @@ const RegisterPage = ({history}) => {
                 });
                 setErrors(apiErrors);
             }
+            toast.error("Des erreurs dans votre formulaire !");
         }
     }
 

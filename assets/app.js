@@ -12,6 +12,8 @@ import AuthAPI from "./js/services/authAPI";
 import Customer from "./js/pages/Customer";
 import Invoice from "./js/pages/Invoice";
 import RegisterPage from "./js/pages/RegisterPage";
+import {ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 AuthAPI.setup();
 
@@ -41,6 +43,7 @@ const App = () => {
                     <Route path="/" component={Home} />
                 </Switch>
             </HashRouter>
+            <ToastContainer />
         </div>
     );
 };

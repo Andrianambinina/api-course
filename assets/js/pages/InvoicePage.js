@@ -7,6 +7,7 @@ import {faEdit} from '@fortawesome/free-solid-svg-icons';
 import Pagination from "../components/Pagination";
 import moment from 'moment';
 import {Link} from "react-router-dom";
+import {toast} from "react-toastify";
 
 const STATUS_CLASS = {
     PAID: 'success',
@@ -26,10 +27,16 @@ const InvoicePage = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [search, setSearch] = useState('');
 
-    useEffect(() => {
-        const data = axios.get('http://localhost:8000/api/invoices').then((response) => setInvoices(response.data["hydra:member"]));
+    const fetchInvoices = async () => {
+        try {
+            await axios.get('http://localhost:8000/api/invoices').then((response) => setInvoices(response.data["hydra:member"]));
+        } catch (error) {
+            toast.error("Erreur lors du chargement des factures !");
+        }
+    }
 
-        console.log(data);
+    useEffect(() => {
+        fetchInvoices();
     }, []);
 
 
@@ -54,9 +61,10 @@ const InvoicePage = () => {
         setInvoices(invoices.filter((invoice) => invoice.id !== id));
 
         try {
-            await axios.delete("http://localhost:8000/api/invoices/" + id)
-        } catch (err) {
-            console.log(err.message);
+            await axios.delete("http://localhost:8000/api/invoices/" + id);
+            toast.success("La facture a été bien supprimée");
+        } catch (error) {
+            toast.error("Une erreur est survenue");
             setInvoices(originalInvoices);
         }
     };

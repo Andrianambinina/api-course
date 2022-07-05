@@ -3,6 +3,7 @@ import Field from "../components/forms/Field";
 import Select from "../components/forms/Select";
 import {Link} from "react-router-dom";
 import axios from "axios";
+import {toast} from "react-toastify";
 
 const Invoice = ({history, match}) => {
 
@@ -32,6 +33,7 @@ const Invoice = ({history, match}) => {
             setCustomers(data);
             if(!invoice.customer) setInvoice({...invoice, customer: data[0].id});
         } catch (error) {
+            toast.error("Impossible de charger les clients");
             history.replace('/invoices');
         }
     }
@@ -41,6 +43,7 @@ const Invoice = ({history, match}) => {
             const {amount, status, customer} = await axios.get("http://127.0.0.1:8000/api/invoices/" + id).then((response) => response.data);
             setInvoice({amount, status, customer: customer.id});
         } catch (error) {
+            toast.error("Impossible de charger la facture demandée");
             history.replace('/invoices');
         }
     }
@@ -67,8 +70,10 @@ const Invoice = ({history, match}) => {
         try {
             if (editing) {
                 await axios.put("http://127.0.0.1:8000/api/invoices/" + id, {...invoice, customer: `/api/customers/${invoice.customer}`});
+                toast.success("La facture a bien éte modifiée");
             } else {
                 await axios.post("http://127.0.0.1:8000/api/invoices", {...invoice, customer: `/api/customers/${invoice.customer}`});
+                toast.success("La facture a bien été enregistrée");
                 history.replace("/invoices");
             }
         } catch ({response}) {
@@ -79,6 +84,7 @@ const Invoice = ({history, match}) => {
                     apiErrors[propertyPath] = message
                 })
                 setErrors(apiErrors);
+                toast.error("Des erreurs dans votre formulaire");
             }
         }
     }

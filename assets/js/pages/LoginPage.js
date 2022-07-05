@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import AuthAPI from "../services/authAPI";
+import {toast} from "react-toastify";
 
 const LoginPage = ({onLogin, history}) => {
 
@@ -22,9 +23,11 @@ const LoginPage = ({onLogin, history}) => {
             await AuthAPI.authenticate(credentials);
             setError('');
             onLogin(true);
+            toast.success("Vous êtes désormais connecté");
             history.replace("/customers");
         } catch (error) {
             setError(error.message);
+            toast.error("Une erreur est survenue");
         }
     };
 

@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Field from "../components/forms/Field";
 import {Link} from "react-router-dom";
 import axios from "axios";
+import {toast} from "react-toastify";
 
 const Customer = ({match, history}) => {
     const { id } = match.params;
@@ -27,7 +28,7 @@ const Customer = ({match, history}) => {
             const { lastName, firstName, email, company } = data;
             setCustomer({lastName, firstName, email, company});
         } catch (e) {
-            console.log(e.response);
+            toast.error("Impossible de charger le client demandé");
         }
     }
 
@@ -50,9 +51,11 @@ const Customer = ({match, history}) => {
         try {
             if (editing) {
                 const response = await axios.put("http://127.0.0.1:8000/api/customers/" + id, customer);
+                toast.success("Le client a bien été modifié");
                 history.replace("/customers");
             } else {
                 const response = await axios.post("http://127.0.0.1:8000/api/customers", customer);
+                toast.success("Le client a bien été enregistré");
                 history.replace("/customers");
             }
             setErrors({})
@@ -64,6 +67,7 @@ const Customer = ({match, history}) => {
                     apiErrors[propertyPath] = message
                 })
                 setErrors(apiErrors);
+                toast.error("Des erreurs dans votre forumlaire");
             }
         }
     }
