@@ -30,7 +30,7 @@ const App = () => {
     const NavbarWithRouter = withRouter(Navbar);
 
     return (
-        <div className="app">
+        <div className="">
             <HashRouter>
                 <NavbarWithRouter isAuthenticated={isAuthenticated} onLogout={setIsAuthenticated} />
                 <Switch>
