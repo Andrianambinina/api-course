@@ -7,6 +7,7 @@ import Pagination from "../components/Pagination";
 import {Link} from "react-router-dom";
 import {toast} from "react-toastify";
 import TableLoader from "../components/loaders/TableLoader";
+import {CUSTOMERS_API} from "../config";
 
 const CustomerPage = () => {
 
@@ -18,7 +19,7 @@ const CustomerPage = () => {
 
     const fetchCustomers = async () => {
         try {
-            await axios.get('http://127.0.0.1:8000/api/customers')
+            await axios.get(CUSTOMERS_API)
                 .then((response) => setCustomers(response.data["hydra:member"]));
             setLoading(false);
         } catch (error) {
@@ -33,7 +34,7 @@ const CustomerPage = () => {
     const handleDelete = async (id) => {
         try {
             await axios
-                .delete(`http://127.0.0.1:8000/api/customers/${id}`)
+                .delete(CUSTOMERS_API + "/" + id)
                 .then(() => setCustomers(customers.filter((customer) => customer.id !== id)));
             toast.success("Le client a bien été supprimé");
         } catch (error) {

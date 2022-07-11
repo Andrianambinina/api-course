@@ -4,6 +4,7 @@ import Select from "../components/forms/Select";
 import {Link} from "react-router-dom";
 import axios from "axios";
 import {toast} from "react-toastify";
+import {CUSTOMERS_API, INVOICES_API} from "../config";
 
 const Invoice = ({history, match}) => {
 
@@ -27,7 +28,7 @@ const Invoice = ({history, match}) => {
     const fetchCustomers = async () => {
         try {
             const data = await axios
-                .get("http://127.0.0.1:8000/api/customers")
+                .get(CUSTOMERS_API)
                 .then((response) => response.data["hydra:member"])
                 .catch((error) => console.log(error));
             setCustomers(data);
@@ -40,7 +41,7 @@ const Invoice = ({history, match}) => {
 
     const fetchInvoice = async (id) => {
         try {
-            const {amount, status, customer} = await axios.get("http://127.0.0.1:8000/api/invoices/" + id).then((response) => response.data);
+            const {amount, status, customer} = await axios.get(INVOICES_API + "/" + id).then((response) => response.data);
             setInvoice({amount, status, customer: customer.id});
         } catch (error) {
             toast.error("Impossible de charger la facture demandée");
@@ -69,10 +70,10 @@ const Invoice = ({history, match}) => {
 
         try {
             if (editing) {
-                await axios.put("http://127.0.0.1:8000/api/invoices/" + id, {...invoice, customer: `/api/customers/${invoice.customer}`});
+                await axios.put(INVOICES_API + "/" + id, {...invoice, customer: `/api/customers/${invoice.customer}`});
                 toast.success("La facture a bien éte modifiée");
             } else {
-                await axios.post("http://127.0.0.1:8000/api/invoices", {...invoice, customer: `/api/customers/${invoice.customer}`});
+                await axios.post(INVOICES_API, {...invoice, customer: `/api/customers/${invoice.customer}`});
                 toast.success("La facture a bien été enregistrée");
                 history.replace("/invoices");
             }

@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import Field from "../components/forms/Field";
-import customer from "./Customer";
 import {Link} from "react-router-dom";
 import axios from "axios";
 import {toast} from "react-toastify";
+import {USERS_API} from "../config";
 
 const RegisterPage = ({history}) => {
 
@@ -39,7 +39,7 @@ const RegisterPage = ({history}) => {
         }
 
         try {
-            await axios.post("http://127.0.0.1:8000/api/users", user);
+            await axios.post(USERS_API, user);
             setErrors({});
             toast.success("Vous êtes désormais inscrit, vous pouvez vous connecter !");
             history.replace("/login");

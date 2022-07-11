@@ -3,6 +3,7 @@ import Field from "../components/forms/Field";
 import {Link} from "react-router-dom";
 import axios from "axios";
 import {toast} from "react-toastify";
+import {CUSTOMERS_API} from "../config";
 
 const Customer = ({match, history}) => {
     const { id } = match.params;
@@ -23,7 +24,7 @@ const Customer = ({match, history}) => {
 
     const editCustomer = async id => {
         try {
-            const data = await axios.get("http://127.0.0.1:8000/api/customers/" + id)
+            const data = await axios.get(CUSTOMERS_API + "/" + id)
                 .then((response) => response.data);
             const { lastName, firstName, email, company } = data;
             setCustomer({lastName, firstName, email, company});
@@ -51,11 +52,11 @@ const Customer = ({match, history}) => {
         try {
             setErrors({})
             if (editing) {
-                const response = await axios.put("http://127.0.0.1:8000/api/customers/" + id, customer);
+                await axios.put(CUSTOMERS_API + "/" + id, customer);
                 toast.success("Le client a bien été modifié");
                 history.replace("/customers");
             } else {
-                const response = await axios.post("http://127.0.0.1:8000/api/customers", customer);
+                await axios.post(CUSTOMERS_API, customer);
                 toast.success("Le client a bien été enregistré");
                 history.replace("/customers");
             }

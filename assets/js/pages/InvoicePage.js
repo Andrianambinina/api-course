@@ -9,6 +9,7 @@ import moment from 'moment';
 import {Link} from "react-router-dom";
 import {toast} from "react-toastify";
 import TableLoader from "../components/loaders/TableLoader";
+import {INVOICES_API} from "../config";
 
 const STATUS_CLASS = {
     PAID: 'success',
@@ -31,7 +32,7 @@ const InvoicePage = () => {
 
     const fetchInvoices = async () => {
         try {
-            await axios.get('http://localhost:8000/api/invoices').then((response) => setInvoices(response.data["hydra:member"]));
+            await axios.get(INVOICES_API).then((response) => setInvoices(response.data["hydra:member"]));
             setLoading(false);
         } catch (error) {
             toast.error("Erreur lors du chargement des factures !");
@@ -64,7 +65,7 @@ const InvoicePage = () => {
         setInvoices(invoices.filter((invoice) => invoice.id !== id));
 
         try {
-            await axios.delete("http://localhost:8000/api/invoices/" + id);
+            await axios.delete(INVOICES_API + "/" + id);
             toast.success("La facture a été bien supprimée");
         } catch (error) {
             toast.error("Une erreur est survenue");
