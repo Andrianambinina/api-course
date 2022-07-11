@@ -72,8 +72,7 @@ const CustomerPage = () => {
                 <thead>
                 <tr>
                     <th scope="col" className="text-center">Id</th>
-                    <th scope="col">Nom</th>
-                    <th scope="col">Prénom</th>
+                    <th scope="col">CLient</th>
                     <th scope="col">Email</th>
                     <th scope="col">Company</th>
                     <th scope="col" className="text-center">Total</th>
@@ -84,8 +83,11 @@ const CustomerPage = () => {
                 {data.map((customer) => (
                     <tr key={customer.id}>
                         <td className="text-center">{customer.id}</td>
-                        <td>{customer.firstName}</td>
-                        <td>{customer.lastName}</td>
+                        <td>
+                            <Link to={"/customers/" + customer.id}>
+                                {customer.firstName} {customer.lastName}
+                            </Link>
+                        </td>
                         <td>{customer.email}</td>
                         <td>{customer.company}</td>
                         <td className="text-center">{customer.totalAmount.toLocaleString()}</td>

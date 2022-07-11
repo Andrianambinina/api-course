@@ -100,7 +100,7 @@ const InvoicePage = () => {
                         <tr key={invoice.id}>
                             <td>{invoice.chrono}</td>
                             <td>
-                                <a href="#">{invoice.customer.firstName} {invoice.customer.lastName}</a>
+                                <Link to={"/customers/" + invoice.customer.id}>{invoice.customer.firstName} {invoice.customer.lastName}</Link>
                             </td>
                             <td className="text-center">{formatDate(invoice.sentAt)}</td>
                             <td className="text-center">
