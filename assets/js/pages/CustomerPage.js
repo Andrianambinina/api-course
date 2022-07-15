@@ -65,7 +65,7 @@ const CustomerPage = () => {
                 <h3>Liste des clients</h3>
                 <Link to="/customers/new" className="btn btn-info">Créer un client</Link>
             </div>
-            <div className="form-group w-25">
+            <div className="form-group w-25 ms-auto">
                 <input type="text" className="form-control" placeholder="Rechercher" value={search}
                        onChange={handleSearch}/>
             </div>

@@ -80,7 +80,7 @@ const InvoicePage = () => {
                 <Link to="/invoices/new" className="btn btn-info">Créer une facture</Link>
             </div>
 
-            <div className="form-group w-25">
+            <div className="form-group w-25 ms-auto">
                 <input type="text" className="form-control" value={search} placeholder="Rechercher"
                        onChange={(e) => {setSearch(e.target.value); setCurrentPage(1) }}/>
             </div>
