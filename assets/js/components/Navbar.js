@@ -1,7 +1,7 @@
 import React from 'react';
-import {NavLink} from 'react-router-dom';
 import AuthAPI from "../services/authAPI";
 import {toast} from "react-toastify";
+import {NavLink} from "react-router-dom";
 
 const Navbar = ({isAuthenticated, onLogout, history}) => {
 
@@ -13,40 +13,36 @@ const Navbar = ({isAuthenticated, onLogout, history}) => {
     };
 
     return (
-        <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-            <a className="navbar-brand" href="#">Symfony React</a>
-            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
-                    aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"></span>
-            </button>
+        <header className="p-3 mb-3 border-bottom">
+            <div className="container">
+                <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                    <a href="/" className="d-flex mb-2 me-5 text-dark text-decoration-none">
+                        <span className="fs-4">Symfony React</span>
+                    </a>
 
-            <div className="collapse navbar-collapse" id="navbarsExampleDefault">
-                <ul className="navbar-nav mr-auto">
-                    <li className="nav-item">
-                        <NavLink className="nav-link" to="/customers">Client</NavLink>
-                    </li>
-                    <li className="nav-item">
-                        <NavLink className="nav-link" to="/invoices">Facture</NavLink>
-                    </li>
-                </ul>
-                <ul className="navbar-nav">
-                    {
-                        (!isAuthenticated && (<>
-                            <li className="nav-item">
-                                <NavLink className="nav-link" to="/register">Inscription</NavLink>
-                            </li>
-                            <li className="nav-item">
-                                <NavLink className="nav-link" to="/login">Se connecter</NavLink>
-                            </li>
-                        </>
-                        )) || (
-                        <li className="nav-item">
-                            <NavLink className="nav-link" to="#" onClick={handleLogout}>Déconnecter</NavLink>
-                        </li>)
-                    }
-                </ul>
+                    <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                        <li>
+                            <NavLink to="/customers" className="nav-link px-2 link-dark">Client</NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/invoices" className="nav-link px-2 link-dark">Facture</NavLink>
+                        </li>
+                    </ul>
+
+                    <div className="col-md-3 text-end">
+                        {
+                            (!isAuthenticated && (<>
+                                <NavLink to="/login" className="btn btn-outline-primary me-2">Connexion</NavLink>
+                                <NavLink to="/register" className="btn btn-primary">S'inscrire</NavLink>
+                            </>
+                            )) || (
+                                <NavLink to="#" className="btn btn-light" onClick={handleLogout}>Se déconnecter</NavLink>
+                            )
+                        }
+                    </div>
+                </div>
             </div>
-        </nav>
+        </header>
     );
 };
 

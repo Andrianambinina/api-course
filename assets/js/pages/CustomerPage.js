@@ -65,13 +65,13 @@ const CustomerPage = () => {
                 <h3>Liste des clients</h3>
                 <Link to="/customers/new" className="btn btn-info">Créer un client</Link>
             </div>
-            <div className="form-group">
+            <div className="form-group w-25">
                 <input type="text" className="form-control" placeholder="Rechercher" value={search}
                        onChange={handleSearch}/>
             </div>
             <table className="table table-bordered table-striped mt-3">
                 <thead>
-                <tr>
+                <tr className="text-center">
                     <th scope="col" className="text-center">Id</th>
                     <th scope="col">CLient</th>
                     <th scope="col">Email</th>
@@ -92,7 +92,7 @@ const CustomerPage = () => {
                         <td>{customer.email}</td>
                         <td>{customer.company}</td>
                         <td className="text-center">{customer.totalAmount.toLocaleString()}</td>
-                        <td>
+                        <td className="text-center">
                             <button className="btn btn-danger" disabled={customer.invoices.length > 0}
                                     onClick={() => handleDelete(customer.id)}>
                                 <FontAwesomeIcon icon={faTrashCan}/>

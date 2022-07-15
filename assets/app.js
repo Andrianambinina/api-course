@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import ReactDOM from 'react-dom';
 import './styles/app.css';
 import './styles/bootstrap.min.css';
+import './styles/signin.css';
 import {HashRouter, Switch, Route, withRouter, Redirect} from 'react-router-dom';
 import Home from './js/pages/Home';
 import Navbar from "./js/components/Navbar";
@@ -14,6 +15,7 @@ import Invoice from "./js/pages/Invoice";
 import RegisterPage from "./js/pages/RegisterPage";
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import Footer from "./js/components/Footer";
 
 AuthAPI.setup();
 
@@ -30,7 +32,7 @@ const App = () => {
     const NavbarWithRouter = withRouter(Navbar);
 
     return (
-        <div className="">
+        <div className="main">
             <HashRouter>
                 <NavbarWithRouter isAuthenticated={isAuthenticated} onLogout={setIsAuthenticated} />
                 <Switch>
@@ -44,6 +46,7 @@ const App = () => {
                 </Switch>
             </HashRouter>
             <ToastContainer />
+            <Footer />
         </div>
     );
 };

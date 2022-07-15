@@ -92,25 +92,31 @@ const Invoice = ({history, match}) => {
 
     return (
         <div className="container">
-            {editing && (<h3>Modification d'un facture</h3>) || (<h3>Création d'une facture</h3>)}
-            <form onSubmit={handleSubmit}>
-                <Field name="amount" type="number" placeholder="Montant de la facture" label="Montant"
-                       onChange={handleChange} value={invoice.amount} error={errors.amount}/>
-                <Select name="customer" label="Client" value={invoice.customer} error={errors.customer} onChange={handleChange}>
-                    {customers.map((customer) => (
-                        <option key={customer.id} value={customer.id}>{customer.firstName} {customer.lastName}</option>
-                    ))}
-                </Select>
-                <Select name="status" label="Statut" value={invoice.status} error={errors.status} onChange={handleChange}>
-                    <option value="SENT">Envoyée</option>
-                    <option value="PAID">Payée</option>
-                    <option value="CANCELLED">Annulée</option>
-                </Select>
-                <div className="form-groupe">
-                    <button type="submit" className="btn btn-info">Enregistrer</button>
-                    <Link to="/invoices" className="btn btn-link">Retour à la liste</Link>
+            <div className="card w-75 mx-auto">
+                <div className="card-header">
+                    {editing && (<span className="fs-2">Modification d'un facture</span>) || (<span className="fs-4">Création d'une facture</span>)}
                 </div>
-            </form>
+                <div className="card-body">
+                    <form onSubmit={handleSubmit}>
+                        <Field name="amount" type="number" placeholder="Montant de la facture" label="Montant"
+                               onChange={handleChange} value={invoice.amount} error={errors.amount}/>
+                        <Select name="customer" label="Client" value={invoice.customer} error={errors.customer} onChange={handleChange}>
+                            {customers.map((customer) => (
+                                <option key={customer.id} value={customer.id}>{customer.firstName} {customer.lastName}</option>
+                            ))}
+                        </Select>
+                        <Select name="status" label="Statut" value={invoice.status} error={errors.status} onChange={handleChange}>
+                            <option value="SENT">Envoyée</option>
+                            <option value="PAID">Payée</option>
+                            <option value="CANCELLED">Annulée</option>
+                        </Select>
+                        <div className="form-groupe">
+                            <button type="submit" className="btn btn-primary me-2">Enregistrer</button>
+                            <Link to="/invoices" className="btn btn-light">Retour à la liste</Link>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     );
 };

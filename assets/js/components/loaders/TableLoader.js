@@ -18,7 +18,7 @@ const TableLoader = props => {
                             rx="4"
                             ry="4"
                             width="40"
-                            height="30"
+                            height="15"
                         />
                         <rect
                             x="110"
@@ -26,7 +26,7 @@ const TableLoader = props => {
                             rx="10"
                             ry="4"
                             width="250"
-                            height="30"
+                            height="15"
                         />
                         <rect
                             x="410"
@@ -34,7 +34,7 @@ const TableLoader = props => {
                             rx="10"
                             ry="4"
                             width="250"
-                            height="30"
+                            height="15"
                         />
                         <rect
                             x="710"
@@ -42,7 +42,7 @@ const TableLoader = props => {
                             rx="10"
                             ry="4"
                             width="250"
-                            height="30"
+                            height="15"
                         />
                         <rect
                             x="1010"
@@ -50,7 +50,7 @@ const TableLoader = props => {
                             rx="10"
                             ry="4"
                             width="250"
-                            height="30"
+                            height="15"
                         />
                         <rect
                             x="1310"
@@ -58,7 +58,7 @@ const TableLoader = props => {
                             rx="4"
                             ry="4"
                             width="40"
-                            height="30"
+                            height="15"
                         />
                         <rect
                             x="1400"
@@ -66,7 +66,7 @@ const TableLoader = props => {
                             rx="4"
                             ry="4"
                             width="40"
-                            height="30"
+                            height="15"
                         />
                         <rect
                             y={`${contentVerticalPosition(59)}`}

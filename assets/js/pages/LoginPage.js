@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import AuthAPI from "../services/authAPI";
 import {toast} from "react-toastify";
+import {Link} from "react-router-dom";
 
 const LoginPage = ({onLogin, history}) => {
 
@@ -32,36 +33,34 @@ const LoginPage = ({onLogin, history}) => {
     };
 
     return (
-            <form className="form-signin">
-                <div className="text-center mb-4">
-                    <img className="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg"
-                         alt="" width="72" height="72" />
-                        <h1 className="h3 mb-3 font-weight-normal">Floating labels</h1>
-                        <p>Build form controls with floating labels via
-                            the <code>:placeholder-shown</code> pseudo-element. <a
-                                href="https://caniuse.com/#feat=css-placeholder-shown">Works in latest Chrome, Safari,
-                                and Firefox.</a></p>
-                </div>
+        <div className="form">
+            <main className="form-signin" onSubmit={handleSubmit}>
+                <form>
+                    <img className="mb-4" src="https://getbootstrap.com/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57" />
+                    <h1 className="h3 mb-3 fw-normal">S'identifier</h1>
 
-                <div className="form-label-group">
-                    <input type="email" id="inputEmail" className="form-control" placeholder="Email address" required
-                           autoFocus />
-                        <label htmlFor="inputEmail">Email address</label>
-                </div>
+                    <div className="form-floating">
+                        <input type="email" className={"form-control" + (error && " is-invalid")} id="floatingInput" name="username"
+                               placeholder="Adresse email" value={credentials.username} onChange={handleChange}/>
+                        {error && <p className="invalid-feedback">{error}</p>}
+                        <label htmlFor="floatingInput">Adresse email</label>
+                    </div>
+                    <div className="form-floating">
+                        <input type="password" className="form-control" id="floatingPassword" name="password"
+                               placeholder="Votre mot de passe" value={credentials.password} onChange={handleChange}  />
+                        <label htmlFor="floatingPassword">Mot de passe</label>
+                    </div>
 
-                <div className="form-label-group">
-                    <input type="password" id="inputPassword" className="form-control" placeholder="Password" required />
-                        <label htmlFor="inputPassword">Password</label>
-                </div>
-
-                <div className="checkbox mb-3">
-                    <label>
-                        <input type="checkbox" value="remember-me" /> Remember me
-                    </label>
-                </div>
-                <button className="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-                <p className="mt-5 mb-3 text-muted text-center">&copy; 2017-2018</p>
-            </form>
+                    <div className="checkbox mb-3">
+                        <label>
+                            <input type="checkbox" value="remember-me" /> Se souvenir de moi
+                        </label>
+                    </div>
+                    <button className="w-100 btn btn-lg btn-primary" type="submit">Se connecter</button>
+                    <p className="mt-5 mb-3 text-muted">Vous n'avez pas encore de compte? <Link to="/register">S'inscrire maintenant!</Link></p>
+                </form>
+            </main>
+        </div>
     );
 };
 

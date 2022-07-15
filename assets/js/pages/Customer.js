@@ -75,17 +75,23 @@ const Customer = ({match, history}) => {
 
     return (
         <div className="container">
-            {!editing && <h3>Création d'un client</h3> || <h3>Modification d'un client</h3>}
-            <form onSubmit={handleSubmit}>
-                <Field name="lastName" label="Nom" placeholder="Nom de famille" value={customer.lastName} onChange={handleChange} error={errors.lastName} />
-                <Field name="firstName" label="Prénoms" placeholder="Prénoms" value={customer.firstName} onChange={handleChange} error={errors.firstName} />
-                <Field name="email" label="Email" placeholder="Adresse email" type="email" value={customer.email} onChange={handleChange} error={errors.email} />
-                <Field name="company" label="Entreprise" placeholder="Entreprise du client" value={customer.company} onChange={handleChange} />
-                <div className="form-groupe">
-                    <button type="submit" className="btn btn-info">Enregistrer</button>
-                    <Link to="/customers" className="btn btn-link">Retour à la liste</Link>
+            <div className="card w-75 mx-auto">
+                <div className="card-header">
+                    {!editing && <h3>Création d'un client</h3> || <h3>Modification d'un client</h3>}
                 </div>
-            </form>
+                <div className="card-body">
+                    <form onSubmit={handleSubmit}>
+                        <Field name="lastName" label="Nom" placeholder="Nom de famille" value={customer.lastName} onChange={handleChange} error={errors.lastName} />
+                        <Field name="firstName" label="Prénoms" placeholder="Prénoms" value={customer.firstName} onChange={handleChange} error={errors.firstName} />
+                        <Field name="email" label="Email" placeholder="Adresse email" type="email" value={customer.email} onChange={handleChange} error={errors.email} />
+                        <Field name="company" label="Entreprise" placeholder="Entreprise du client" value={customer.company} onChange={handleChange} />
+                        <div className="form-groupe">
+                            <button type="submit" className="btn btn-primary me-2">Enregistrer</button>
+                            <Link to="/customers" className="btn btn-light">Retour à la liste</Link>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     );
 };

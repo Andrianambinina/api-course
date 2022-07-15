@@ -80,7 +80,7 @@ const InvoicePage = () => {
                 <Link to="/invoices/new" className="btn btn-info">Créer une facture</Link>
             </div>
 
-            <div className="form-group">
+            <div className="form-group w-25">
                 <input type="text" className="form-control" value={search} placeholder="Rechercher"
                        onChange={(e) => {setSearch(e.target.value); setCurrentPage(1) }}/>
             </div>
@@ -111,7 +111,7 @@ const InvoicePage = () => {
                             </td>
                             <td className="text-center">{invoice.amount.toLocaleString()}</td>
                             <td className="text-center">
-                                <Link to={"/invoices/" + invoice.id} className="btn btn-info">
+                                <Link to={"/invoices/" + invoice.id} className="btn btn-info mx-2">
                                     <FontAwesomeIcon icon={faEdit} />
                                 </Link>
                                 <button className="btn btn-danger ml-5" onClick={() => handleDelete(invoice.id)}>

@@ -2,8 +2,8 @@ import React from 'react';
 
 const Select = ({name, label, value, error = "", onChange, children}) => {
     return (
-        <div className="form-group">
-            <label htmlFor={name}>{label}</label>
+        <div className="mb-3">
+            <label htmlFor={name} className="form-label">{label}</label>
             <select onChange={onChange} name={name} id={name} value={value} className={"form-control" + (error && " is-invalid")}>
                 {children}
             </select>
