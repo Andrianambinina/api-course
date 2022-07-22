@@ -14,6 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @ORM\Table(name="`subscriber`")
  * @UniqueEntity("email", message="Un utilisateur ayant cettre adresse email existe déjà")
  * @ApiResource(
  *     normalizationContext={"groups"={"users_read"}}
